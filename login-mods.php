@@ -50,7 +50,7 @@ function login_mods_filter_lost_password($message) {
 
 function login_mods_filter_login_errors($message) {
     if (strcmp(strip_tags(trim($message)), __('Password reset is not allowed for this user')) == 0
-        && get_site_option('login_mods_disable_password_reset', 0) == 0
+        && get_site_option('login_mods_disable_password_reset', 0) == 1
         && get_site_option('login_mods_password_reset_message', '') != '' ) {
         $message = get_site_option('login_mods_password_reset_message', '');
     }
