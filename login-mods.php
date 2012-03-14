@@ -4,13 +4,13 @@ Plugin Name: Log In Message
 Plugin URI: 
 Description: Add custom log in messages
 Author: S H Mohanjith (Incsub)
-Version: 1.1.0
+Version: 1.0.1
 Network: true
 WDP ID: 256
 Text Domain: login_mods
 */
 
-define('LOGIN_MODS_VERSION', '1.1.0');
+define('LOGIN_MODS_VERSION', '1.0.1');
 
 add_action('init', 'login_mods_action_init');
 add_action('admin_init', 'login_mods_action_admin_init');
