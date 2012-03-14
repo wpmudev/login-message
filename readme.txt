@@ -14,6 +14,9 @@ and display a custom message instead.
 
 == Changelog ==
 
+= 1.1.1 =
+By popular demand now works with WordPress and BuddyPress
+
 = 1.0.0 =
 Initial Release
 
