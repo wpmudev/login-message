@@ -37,10 +37,10 @@ function login_mods_action_init() {
 
 function login_mods_action_admin_init() {
     if (!is_multisite()) {
-        add_settings_field( 'login_mods_message', 'Login message', 'login_mods_message_output', 'general' );
-        add_settings_field( 'login_mods_footer_message', 'Login footer message', 'login_mods_footer_message_output', 'general' );
-        add_settings_field( 'login_mods_disable_password_reset', 'Disable password reset?', 'login_mods_disable_password_reset_output', 'general' );
-        add_settings_field( 'login_mods_password_reset_message', 'Password reset not allowed message', 'login_mods_password_reset_message_output', 'general' );
+        add_settings_field( 'login_mods_message', __('Login message', 'login_mods' ), 'login_mods_message_output', 'general' );
+        add_settings_field( 'login_mods_footer_message', __('Login footer message', 'login_mods' ), 'login_mods_footer_message_output', 'general' );
+        add_settings_field( 'login_mods_disable_password_reset', __('Disable password reset?', 'login_mods' ), 'login_mods_disable_password_reset_output', 'general' );
+        add_settings_field( 'login_mods_password_reset_message', __('Password reset not allowed message', 'login_mods' ), 'login_mods_password_reset_message_output', 'general' );
         
         if (isset($_POST['login_mods_disable_password_reset'])) {
             login_mods_update_option('login_mods_disable_password_reset', $_POST['login_mods_disable_password_reset']);
