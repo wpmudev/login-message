@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Log In Message
-Plugin URI: 
+Plugin URI:
 Description: Add custom log in messages
 Author: S H Mohanjith (Incsub)
 Version: 1.0.1
@@ -15,6 +15,7 @@ define('LOGIN_MODS_VERSION', '1.0.1');
 add_action('init', 'login_mods_action_init');
 add_action('admin_init', 'login_mods_action_admin_init');
 add_action('admin_enqueue_scripts', 'login_mods_action_admin_enqueue_scripts');
+add_action('login_head', 'login_mods_disable_password_reset');
 add_action('login_footer', 'login_mods_action_login_footer');
 add_action('wpmu_options', 'login_mods_action_wpmu_options');
 add_action('update_wpmu_options', 'login_mods_action_update_wpmu_options');
@@ -25,7 +26,7 @@ add_filter('login_errors', 'login_mods_filter_login_errors', 10, 1);
 
 function login_mods_action_init() {
     load_plugin_textdomain('login_mods', false, dirname(plugin_basename(__FILE__)).'/languages');
-    
+
     if (login_mods_get_option('login_message_version', '0.0.0') == '0.0.0') {
         login_mods_add_option('login_message_version', LOGIN_MODS_VERSION);
         login_mods_add_option('login_mods_disable_password_reset', 0);
@@ -41,7 +42,7 @@ function login_mods_action_admin_init() {
         add_settings_field( 'login_mods_footer_message', __('Login footer message', 'login_mods' ), 'login_mods_footer_message_output', 'general' );
         add_settings_field( 'login_mods_disable_password_reset', __('Disable password reset?', 'login_mods' ), 'login_mods_disable_password_reset_output', 'general' );
         add_settings_field( 'login_mods_password_reset_message', __('Password reset not allowed message', 'login_mods' ), 'login_mods_password_reset_message_output', 'general' );
-        
+
         if (isset($_POST['login_mods_disable_password_reset'])) {
             login_mods_update_option('login_mods_disable_password_reset', $_POST['login_mods_disable_password_reset']);
         }
@@ -111,7 +112,7 @@ function login_mods_filter_lost_password($message) {
     if (login_mods_get_option('login_mods_message', '') != '') {
         $message .= '<p class="message">'.__(login_mods_get_option('login_mods_message', ''), 'login_mods').'</p>';
     }
-    
+
     return $message;
 }
 
@@ -126,6 +127,11 @@ function login_mods_filter_login_errors($message) {
 
 function login_mods_filter_allow_password_reset($allow_password_reset, $user_id) {
     return (login_mods_get_option('login_mods_disable_password_reset', 0) == 0);
+}
+
+function login_mods_disable_password_reset() {
+    if(login_mods_get_option('login_mods_disable_password_reset', 0))
+        echo '<style type="text/css">#nav a:last-child {display:none;}</style>';
 }
 
 function login_mods_action_login_footer() {
@@ -155,21 +161,21 @@ function login_mods_action_wpmu_options() {
     ?>
     <h3><?php _e( 'Log In Mod Settings', 'login_mods' ); ?></h3>
     <table id="menu" class="form-table">
-        
+
         <tr valign="top">
             <th scope="row"><?php _e( 'Login message', 'login_mods' ); ?></th>
             <td>
                 <textarea id="login_mods_message" name="login_mods_message" class="large-text" ><?php echo esc_textarea(stripslashes(login_mods_get_option('login_mods_message', ''))); ?></textarea>
             </td>
         </tr>
-        
+
         <tr valign="top">
             <th scope="row"><?php _e( 'Login footer message', 'login_mods' ); ?></th>
             <td>
                 <textarea id="login_mods_footer_message" name="login_mods_footer_message" class="large-text" ><?php echo esc_textarea(stripslashes(login_mods_get_option('login_mods_footer_message', ''))); ?></textarea>
             </td>
         </tr>
-        
+
         <tr valign="top">
             <th scope="row"><?php _e( 'Disable password reset?', 'login_mods' ); ?></th>
             <td>
@@ -179,7 +185,7 @@ function login_mods_action_wpmu_options() {
                     <?php echo (login_mods_get_option('login_mods_disable_password_reset', 0) == 0)?'checked="checked"':''; ?> /> <?php _e( 'No', 'login_mods' ); ?></label>
             </td>
         </tr>
-        
+
         <tr valign="top" class="login_mods_disabled_password_reset">
             <th scope="row"><?php _e( 'Password reset not allowed message', 'login_mods' ); ?></th>
             <td>
