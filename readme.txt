@@ -2,7 +2,7 @@
 Contributors: mohanjith
 Tags: login message, password reset
 Tested up to: 3.3.1
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 Requires at least: 3.0
 
 Add custom log in messages
