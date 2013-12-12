@@ -10,10 +10,6 @@ WDP ID: 256
 Text Domain: login_mods
 */
 
-global $wpmudev_notices;
-$wpmudev_notices[] = array( 'id'=> 256, 'name'=> 'Log In Message', 'screens' => array( 'settings-network' ) );
-include_once(plugin_dir_path( __FILE__ ).'external/dash-notice/wpmudev-dash-notification.php');
-
 define('LOGIN_MODS_VERSION', '1.0.2');
 
 add_action('init', 'login_mods_action_init');
@@ -199,3 +195,7 @@ function login_mods_action_wpmu_options() {
     </table>
     <?php
 }
+
+global $wpmudev_notices;
+$wpmudev_notices[] = array( 'id'=> 256, 'name'=> 'Log In Message', 'screens' => array( 'settings-network' ) );
+include_once(plugin_dir_path( __FILE__ ).'external/dash-notice/wpmudev-dash-notification.php');
